@@ -1,41 +1,46 @@
-// src/App.js
-import React, { useState, useContext, useEffect } from 'react';
-import EngLangAnimation from './EngLangAnimation'; // Animasyon bileşenini import et
-import MainContent from './MainContent'; // Ana içerik bileşenini import et
-import { AuthContext } from './Context/AuthContext'; // AuthContext'i import et
-import { SignupForm } from './SignupForm'; // SignupForm'u import et
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from 'react';
+import { Route, Routes /* BrowserRouter'ı buradan kaldırın */ } from 'react-router-dom';
+
+// Diğer bileşenleriniz
+import AllWords from './Pages/AllWords';
+import Message from './Pages/Message';
+import Profile from './Pages/Profile';
+import SearcFriends from './Pages/SearcFriends';
+import VideoLists from './Pages/VideoLists';
+import NoPage from './Pages/NoPage';
+import Animasya from './Animasya';
+import Layout from './MainLayout/Layout';
+import Playlists from './Pages/Playlists';
+import VideoInputPage from './Pages/VideoInputPage';
+import VideoWatchPage from './Pages/VideoWatch';
+
 function App() {
-  const [showIntroAnimation, setShowIntroAnimation] = useState(true);
-  const { isAuthenticated, user } = useContext(AuthContext); // AuthContext'ten isAuthenticated ve user'ı al
+  const [showAnimation, setShowAnimation] = useState(true);
 
-  // Animasyon tamamlandığında veya kullanıcı zaten giriş yapmışsa animasyonu kapat
-  useEffect(() => {
-    // Eğer kullanıcı zaten giriş yapmışsa, animasyonu atla
-    if (isAuthenticated) {
-      setShowIntroAnimation(false);
-    }
-  }, [isAuthenticated]); // isAuthenticated değiştiğinde bu efekti tekrar çalıştır
-
-  // Bu fonksiyon, animasyon tamamlandığında EngLangAnimation bileşeni tarafından çağrılır.
   const handleAnimationComplete = () => {
-    console.log("Animasyon bitti!");
-    setShowIntroAnimation(false); // Animasyonu gizle
+    console.log("Animasyon tamamlandı, ana içeriğe geçiliyor!");
+    setShowAnimation(false);
   };
 
   return (
-    <div>
-      {/* Eğer `showIntroAnimation` true ise, EngLangAnimation'ı render et. */}
-      {showIntroAnimation ? (
-        <EngLangAnimation onAnimationComplete={handleAnimationComplete} />
+    <div className="App">
+      {showAnimation ? (
+        <Animasya onAnimationComplete={handleAnimationComplete} />
       ) : (
-        // Animasyon bittiyse (yani `showIntroAnimation` false ise),
-        // AuthContext'teki `isAuthenticated` durumuna göre doğru içeriği göster.
-        isAuthenticated ? (
-          <MainContent />
-        ) : (
-          <SignupForm onSignupSuccess={() => { /* AuthContext zaten isAuthenticated'ı güncelleyeceği için burada ek bir işlem gerekmez. */ }} />
-        )
+        // BrowserRouter'ı buradan kaldırdık, çünkü o zaten main.jsx'te
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<VideoInputPage />} />
+            <Route path="messages" element={<Message />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="searchFriends" element={<SearcFriends />} />
+            <Route path="videolists" element={<VideoLists />} />
+            <Route path="playlists" element={<Playlists />} />
+           
+            <Route path="/watch" element={<VideoWatchPage />} />
+            <Route path="*" element={<NoPage />} />
+          </Route>
+        </Routes>
       )}
     </div>
   );

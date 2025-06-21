@@ -18,6 +18,7 @@ public class SearchController {
 
     @GetMapping("/search")
     public List<Word> searchWordsByEmail(@RequestParam String email) {
+
         return searchService.getWordsByEmail(email);
     }
 }

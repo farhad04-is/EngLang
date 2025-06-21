@@ -1,17 +1,18 @@
 // src/MainContent.jsx
 import React from 'react';
-import VideoPlayer from './VideoPlayer';
+
 import HandleTranslate from './HandleTranslate';
 import { useContext } from 'react';
 import { AuthContext } from './Context/AuthContext';
+import VideoWatchPage from './Pages/VideoWatch';
 
 
 function MainContent() { // 'export' kelimesini buradan kaldırın, en altta 'export default' kullanacağız
-  const { user, logout } = useContext(AuthContext);
+  // const { user, logout } = useContext(AuthContext);
 
-  const handleLogout = () => {
-    logout();
-  };
+  // const handleLogout = () => {
+  //   logout();
+  // };
 
   return (
     <div
@@ -25,14 +26,14 @@ function MainContent() { // 'export' kelimesini buradan kaldırın, en altta 'ex
       }}
     >
       {/* Kullanıcı bilgisi ve Çıkış Yap butonu */}
-      <div style={{ position: 'absolute', top: '10px', right: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-        {user && <span>Hoş Geldiniz, **{user.username}**</span>}
+      {/* <div style={{ position: 'absolute', top: '10px', right: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+        {user && <span>Hoş Geldiniz, {user.username}</span>}
         <button onClick={handleLogout} className="logout-button">Çıkış Yap</button>
-      </div>
+      </div> */}
 
       {/* Sol taraf: VideoPlayer */}
       <div style={{ flex: 1 }}>
-        <VideoPlayer />
+        <VideoWatchPage />
       </div>
 
       {/* Sağ taraf: HandleTranslate */}

@@ -36,8 +36,8 @@ public class SearchService {
 
         // Her bir WordList'teki kelimeleri WordData objelerine dönüştürüp tek bir liste halinde topla
         return wordLists.stream()
-                .flatMap(wordList -> wordList.getWords().stream()) // Tüm kelimeleri tek bir akışa indirge
-                .map(this::convertToWordData) // Her Word'ü WordData'ya dönüştür
+                .flatMap(wordList -> wordList.getWords().stream())
+                .map(this::convertToWordData)
                 .collect(Collectors.toList());
     }
 
