@@ -70,27 +70,23 @@ const VideoWatchPage = () => {
             Tarayıcınız video etiketini desteklemiyor.
           </video>
 
-          <div className="mt-4 p-4 bg-gray-100 rounded-lg shadow-inner text-lg min-h-[4rem] flex flex-wrap justify-center items-center text-center">
-            {currentDisplayedSubtitle ? (
-              <>
-                {currentDisplayedSubtitle.split(/(\s+)/).map((chunk, i) =>
-                  chunk.trim() === '' ? (
-                    <span key={i}>{chunk}</span>
-                  ) : (
-                    <span
-                      key={i}
-                      onClick={() => handleWordClick(chunk)}
-                      className="cursor-pointer hover:text-blue-600 hover:bg-blue-100 px-1 py-0.5 rounded-sm transition-colors duration-200 whitespace-pre-wrap mx-0.5"
-                    >
-                      {chunk}
-                    </span>
-                  )
-                )}
-              </>
-            ) : (
-              <span className="text-gray-500">Altyazılar burada görünecektir.</span>
-            )}
-          </div>
+                    <div className="mt-4 p-2 bg-gray-100 rounded text-lg min-h-[3rem]">
+                        {currentDisplayedSubtitle ? (
+                            currentDisplayedSubtitle.split(' ').map((word, i) => (
+                                <React.Fragment key={i}>
+                                    <span
+                                        onClick={() => handleWordClick(word.replace(/[.,!?;]$/, ''))} // Clean punctuation
+                                        className="cursor-pointer hover:text-blue-600 whitespace-pre-wrap"
+                                    >
+                                        {word}
+                                    </span>
+                                    {' '}
+                                </React.Fragment>
+                            ))
+                        ) : (
+                            <span></span>
+                        )}
+                    </div>
         </>
       )}
     </div>

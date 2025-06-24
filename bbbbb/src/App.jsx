@@ -12,7 +12,7 @@ import Animasya from './Animasya';
 import Layout from './MainLayout/Layout';
 import Playlists from './Pages/Playlists';
 import VideoInputPage from './Pages/VideoInputPage';
-import VideoWatchPage from './Pages/VideoWatch';
+import MainContent from './MainContent';
 
 function App() {
   const [showAnimation, setShowAnimation] = useState(true);
@@ -37,7 +37,7 @@ function App() {
             <Route path="videolists" element={<VideoLists />} />
             <Route path="playlists" element={<Playlists />} />
            
-            <Route path="/watch" element={<VideoWatchPage />} />
+            <Route path="watch" element={<MainContent />} />
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>
